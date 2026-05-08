@@ -26,7 +26,7 @@ if not exist "%SOURCE_DIR%" (
 
 echo.
 echo ============================================================
-echo  Starting copy process
+echo  Starting copy process (most recent file per folder)
 echo  Source:      %SOURCE_DIR%
 echo  Destination: %DEST_DIR%
 echo ============================================================
@@ -43,12 +43,13 @@ for /d %%D in ("%SOURCE_DIR%\*") do (
     set "FOUND_FILE="
 
     REM --------------------------------------------------------
-    REM  Loop through files in the current subfolder and grab
-    REM  only the first one, then break out using goto
+    REM  Use 'dir' to list files sorted by date descending (/o-d)
+    REM  with bare format (/b) and files only (/a-d). The first
+    REM  result returned is the most recently modified file.
     REM --------------------------------------------------------
-    for %%F in ("%%D\*") do (
+    for /f "delims=" %%F in ('dir /b /a-d /o-d "%%D\*" 2^>nul') do (
         if not defined FOUND_FILE (
-            set "FOUND_FILE=%%F"
+            set "FOUND_FILE=%%D\%%F"
         )
     )
 
