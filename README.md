@@ -1,2 +1,3 @@
 # script-batch-file-copy
-A lightweight Windows batch utility that scans subfolders, extracts the most recent file from each directory, and copies them into a single destination folder while handling duplicates automatically.
+Windows batch script that copies the newest file from each subfolder into a single destination, with date filtering and duplicate-safe renaming.
+
